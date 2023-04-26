@@ -1,28 +1,33 @@
 import axios from "axios";
 import { useState } from "react";
-import { Link, useNavigate } from "react-router-dom";
+import { useNavigate, useParams, useSearchParams } from "react-router-dom";
 
-function Login() {
+function Reset() {
   const [values, setValues] = useState({
-    email: "",
     password: "",
+    password_confirmation: "",
   });
+
+  const { id } = useParams();
+  const [searchParams, setSearchParams] = useSearchParams();
 
   const navigate = useNavigate();
 
   const handleSubmit = (e) => {
     e.preventDefault();
 
+    const token = searchParams.get("token");
+
     axios
-      .post("http://localhost:3000/api/login", values)
+      .post(`http://localhost:3000/api/reset/${id}/${token}`, values)
       .then((res) => {
         console.log(res);
-        localStorage.setItem("token", res.data.token);
-        navigate("/");
+        alert("Contraseña modificada");
+        navigate("/login");
       })
       .catch((err) => {
         console.log(err);
-        alert(err.response.data.error);
+        alert(err.response.data.error || "Server error");
       });
   };
 
@@ -37,22 +42,8 @@ function Login() {
 
   return (
     <div className="container">
-      <h1>Login</h1>
+      <h1>Reset</h1>
       <form onSubmit={handleSubmit}>
-        <div className="mb-3">
-          <label htmlFor="email" className="form-label">
-            Email address
-          </label>
-          <input
-            type="email"
-            className="form-control"
-            id="email"
-            required
-            name="email"
-            value={values.email}
-            onChange={handleChange}
-          />
-        </div>
         <div className="mb-3">
           <label htmlFor="password" className="form-label">
             Password
@@ -68,15 +59,25 @@ function Login() {
             onChange={handleChange}
           />
         </div>
+        <div className="mb-3">
+          <label htmlFor="password_confirmation" className="form-label">
+            Password confirmation
+          </label>
+          <input
+            type="password"
+            className="form-control"
+            id="password_confirmation"
+            name="password_confirmation"
+            value={values.password_confirmation}
+            onChange={handleChange}
+          />
+        </div>
         <button type="submit" className="btn btn-primary">
           Submit
         </button>
-        <Link to="/forgot" className="btn btn-light ms-3">
-          Forgot
-        </Link>
       </form>
     </div>
   );
 }
 
-export default Login;
+export default Reset;

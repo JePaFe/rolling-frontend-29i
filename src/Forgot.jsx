@@ -2,10 +2,9 @@ import axios from "axios";
 import { useState } from "react";
 import { Link, useNavigate } from "react-router-dom";
 
-function Login() {
+function Forgot() {
   const [values, setValues] = useState({
     email: "",
-    password: "",
   });
 
   const navigate = useNavigate();
@@ -14,10 +13,10 @@ function Login() {
     e.preventDefault();
 
     axios
-      .post("http://localhost:3000/api/login", values)
+      .post("http://localhost:3000/api/forgot", values)
       .then((res) => {
         console.log(res);
-        localStorage.setItem("token", res.data.token);
+        alert("Se envio un correo con el link");
         navigate("/");
       })
       .catch((err) => {
@@ -37,7 +36,7 @@ function Login() {
 
   return (
     <div className="container">
-      <h1>Login</h1>
+      <h1>Forgot</h1>
       <form onSubmit={handleSubmit}>
         <div className="mb-3">
           <label htmlFor="email" className="form-label">
@@ -53,30 +52,12 @@ function Login() {
             onChange={handleChange}
           />
         </div>
-        <div className="mb-3">
-          <label htmlFor="password" className="form-label">
-            Password
-          </label>
-          <input
-            type="password"
-            className="form-control"
-            id="password"
-            required
-            minLength={5}
-            name="password"
-            value={values.password}
-            onChange={handleChange}
-          />
-        </div>
         <button type="submit" className="btn btn-primary">
           Submit
         </button>
-        <Link to="/forgot" className="btn btn-light ms-3">
-          Forgot
-        </Link>
       </form>
     </div>
   );
 }
 
-export default Login;
+export default Forgot;

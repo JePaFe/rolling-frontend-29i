@@ -18,9 +18,13 @@ function Register() {
       .post("http://localhost:3000/api/register", values)
       .then((res) => {
         console.log(res);
+        alert("Usuario registrado");
         navigate("/");
       })
-      .catch((err) => console.log(err));
+      .catch((err) => {
+        console.log(err);
+        alert(err.response.data.errors[0].msg || "Server error");
+      });
   };
 
   const handleChange = (event) => {

@@ -3,6 +3,8 @@ import Home from "./Home";
 import Login from "./Login";
 import Register from "./Register";
 import Productos from "./Productos";
+import Forgot from "./Forgot";
+import Reset from "./Reset";
 
 function App() {
   return (
@@ -12,6 +14,8 @@ function App() {
         <Route path="/productos" element={<Productos />} />
         <Route path="/login" element={<Login />} />
         <Route path="/register" element={<Register />} />
+        <Route path="/forgot" element={<Forgot />} />
+        <Route path="/reset/:id" element={<Reset />} />
       </Routes>
     </BrowserRouter>
   );
