@@ -5,6 +5,8 @@ import Register from "./Register";
 import Productos from "./Productos";
 import Forgot from "./Forgot";
 import Reset from "./Reset";
+import ProductoCreate from "./ProductoCreate";
+import ProductoEdit from "./ProductoEdit";
 
 function App() {
   return (
@@ -12,6 +14,8 @@ function App() {
       <Routes>
         <Route path="/" element={<Home />} />
         <Route path="/productos" element={<Productos />} />
+        <Route path="/productos/create" element={<ProductoCreate />} />
+        <Route path="/productos/edit/:id" element={<ProductoEdit />} />
         <Route path="/login" element={<Login />} />
         <Route path="/register" element={<Register />} />
         <Route path="/forgot" element={<Forgot />} />
