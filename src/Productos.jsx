@@ -11,7 +11,11 @@ function Productos() {
 
   const getProductos = () => {
     axios
-      .get("http://localhost:3000/api/productos")
+      .get(import.meta.env.VITE_BACK_URI + "/api/productos", {
+        // headers: {
+        //   Authorization: localStorage.getItem("token"),
+        // },
+      })
       .then((res) => setProductos(res.data))
       .catch((err) => {
         console.log(err);
@@ -58,16 +62,16 @@ function Productos() {
         </Link>
       </div>
 
-      <div class="input-group mb-3">
+      <div className="input-group mb-3">
         <input
           type="search"
-          class="form-control"
+          className="form-control"
           name="search"
           value={search}
           onChange={handleChangeSearch}
         />
         <button
-          class="btn btn-outline-secondary"
+          className="btn btn-outline-secondary"
           onClick={buscar}
           type="button"
         >
@@ -98,17 +102,17 @@ function Productos() {
                   />
                 </td>
                 <td>
-                  <div class="btn-group" role="group">
+                  <div className="btn-group" role="group">
                     <Link
                       to={`/productos/edit/${producto._id}`}
-                      class="btn btn-sm btn-danger"
+                      className="btn btn-sm btn-danger"
                     >
                       Editar
                     </Link>
                     <button
                       onClick={() => destroy(producto._id)}
                       type="button"
-                      class="btn btn-sm btn-success"
+                      className="btn btn-sm btn-success"
                     >
                       Borrar
                     </button>
